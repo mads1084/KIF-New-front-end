@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# KIF — Dagpengeansøgning Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React/TypeScript frontend til KIF (KI Forvaltning) dagpengeansøgningsflow.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19 + TypeScript
+- Vite 7 (dev server + bundler)
+- Tailwind CSS 4
+- React Router DOM 7
+- Google Fonts: DM Sans, Source Serif 4
 
-## React Compiler
+## Kom i gang
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Åbn [http://localhost:5173/ansoegning](http://localhost:5173/ansoegning)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Projektstruktur
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── pages/
+│   ├── KIFAssessmentPage.tsx   # Hovedside — dagpengeansøgning
+│   ├── HomePage.tsx            # Velkomstside
+│   └── KISPage.tsx             # KI Sagsbehandler
+├── components/sidebar/         # Sidebar navigation
+├── layouts/RootLayout.tsx      # Sidebar + content layout
+├── routes/routes.tsx           # Route-definitioner
+├── services/api.tsx            # API service (skal erstattes med ny backend)
+├── contexts/SidebarContext.tsx  # Sidebar state
+├── styles/global.css           # Tailwind + farvevariabler
+└── types/                      # TypeScript interfaces
+```
+
+## Routes
+
+| Path | Side | Beskrivelse |
+|------|------|-------------|
+| `/` | HomePage | Velkomst med navigation cards |
+| `/ansoegning` | KIFAssessmentPage | Dagpengeansøgning (hovedflow) |
+| `/kisagsbehandler` | KISPage | KI Sagsbehandler |
+
+## Ansøgningsflow (KIFAssessmentPage)
+
+1. **Landing** — Viser medlemsoplysninger, knap til at starte ansøgning
+2. **Formular** — Ledighedserklæring med 9 sektioner + betinget sygdomsunderformular
+3. **Vurdering** — 7 krav vurderes sekventielt med animeret stepper
+4. **Afgørelse** — Godkendt/afvist med juridiske referencer og EU AI Act disclaimer
+
+### Demo
+Klik "Demo: Udfyld med testdata" i formularen for at se flowet med preudfyldte data.
+
+## Status
+
+- Frontend: Fungerende prototype
+- Backend: Ikke implementeret endnu — krav-vurderingen er simuleret med timers
+- `api.tsx` peger på en gammel backend og skal erstattes
