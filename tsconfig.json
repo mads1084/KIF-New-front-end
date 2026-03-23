@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2015", // or "ES6" (equivalent to ES2015)
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Include ES2015 library for Promise support
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src"]
+}
