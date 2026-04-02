@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import HomePage from "../pages/HomePage";
 import KISPage from "../pages/KISPage";
 import KIFAssessmentPage from "../pages/KIFAssessmentPage";
+import CaseworkerPage from "../pages/CaseworkerPage";
 
 export const routes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ export const routes: RouteObject[] = [
       {
         path: "ansoegning",
         element: <KIFAssessmentPage />,
+      },
+      {
+        path: "sagsbehandler",
+        element: <CaseworkerPage />,
       },
     ],
   },

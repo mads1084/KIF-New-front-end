@@ -1,4 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { formToJSON } from "../utils/formToJSON";
+import type { CaseJSON } from "../utils/formToJSON";
+import { quickEval } from "../utils/quickEval";
+import type { KravResult } from "../utils/quickEval";
+import { useCase } from "../contexts/CaseContext";
 
 /* ───────────────────── TYPE DEFINITIONS ───────────────────── */
 
@@ -17,18 +22,10 @@ interface Section {
   fields: Field[];
 }
 
-interface KravDetail {
-  verdict: string;
-  finding: string;
-  legalRef: string;
-}
-
-interface Krav {
-  id: number;
+interface Bucket {
+  key: string;
   title: string;
-  detailPassed: KravDetail;
-  passed: boolean;
-  durationMs: number;
+  results: KravResult[];
 }
 
 /* ───────────────────── FORM FIELD DEFINITIONS ───────────────────── */
@@ -137,6 +134,7 @@ const SYGDOM_FIELDS: Field[] = [
 const PREFILL_DATA: Record<string, string> = {
   cpr: "040984-2623", navn: "Mathias Bell Willumsen", telefon: "26206409",
   aarsag: "Jeg har været syg og er nu rask", folkeskole: "ja",
+  foerste_sygedag: "2022-03-14", sidste_sygedag: "2025-04-22",
   foerste_ledig: "2025-04-23",
   ansaettelse_3mdr: "nej", ophoert_12mdr: "nej",
   cvr_3aar: "nej", overskud_selvstaendig: "nej", b_indkomst: "nej",
@@ -151,45 +149,36 @@ const PREFILL_DATA: Record<string, string> = {
   har_vaeret_syg: "ja",
 };
 
-/* ───────────────────── ASSESSMENT KRAV ───────────────────── */
+/* ───────────────────── KRAV HELPERS ───────────────────── */
 
-const KRAV: Krav[] = [
-  {
-    id: 1, title: "Medlemskab af a-kasse",
-    detailPassed: { verdict: "Opfyldt", finding: "Medlemskabskrav opfyldt — ansøger har tilstrækkelig anciennitet.", legalRef: "Lov om arbejdsløshedsforsikring m.v. — medlemskabskrav" },
-    passed: true, durationMs: 2200,
-  },
-  {
-    id: 2, title: "Indkomst- og beskæftigelseskrav",
-    detailPassed: { verdict: "Opfyldt", finding: "Indkomstdata hentet fra eIndkomst. Samlet indkomst i opgørelsesperioden overstiger minimumskravet.", legalRef: "Bekendtgørelse om indkomst- og beskæftigelseskravet" },
-    passed: true, durationMs: 3400,
-  },
-  {
-    id: 3, title: "Tilmeldt som ledig hos Jobcenter",
-    detailPassed: { verdict: "Opfyldt", finding: "Tilmeldingsstatus verificeret via Jobnet.", legalRef: "Lov om en aktiv beskæftigelsesindsats — tilmeldingskrav" },
-    passed: true, durationMs: 1800,
-  },
-  {
-    id: 4, title: "Rådighed for arbejdsmarkedet",
-    detailPassed: { verdict: "Opfyldt", finding: "Ansøger er raskmeldt og bekræfter rådighed for 37 timer/uge. Aktivt jobsøgende inden for jura.", legalRef: "Bekendtgørelse om rådighed" },
-    passed: true, durationMs: 2600,
-  },
-  {
-    id: 5, title: "Ophørsårsag og karantæne",
-    detailPassed: { verdict: "Opfyldt", finding: "Ansøger overgår fra sygedagpenge. Ikke selvforskyldt — ingen karantæne.", legalRef: "Bekendtgørelse om selvforskyldt ledighed" },
-    passed: true, durationMs: 3000,
-  },
-  {
-    id: 6, title: "Sygdomsforløb og raskmelding",
-    detailPassed: { verdict: "Opfyldt", finding: "Raskmeldt pr. 23-04-2025. Fuld erhvervsevne (37 timer). Bemærk: ansøger modtager ydelse vedr. tab af erhvervsevne — kræver nærmere vurdering.", legalRef: "Bekendtgørelse om rådighed — raskmeldte" },
-    passed: true, durationMs: 3200,
-  },
-  {
-    id: 7, title: "Karensperiode og ventedage",
-    detailPassed: { verdict: "Opfyldt", finding: "Ventedage beregnet. Ingen yderligere karensperiode pålagt.", legalRef: "Lov om arbejdsløshedsforsikring — karens og ventedage" },
-    passed: true, durationMs: 2000,
-  },
-];
+function getDurationMs(kr: KravResult): number {
+  if (kr.id === "indkomstkrav" && kr.passed !== null) return 2000;
+  if (kr.requiresDeepAnalysis) return 1500;
+  if (kr.passed === null) return 400;
+  return 500;
+}
+
+function groupIntoBuckets(results: KravResult[]): Bucket[] {
+  const map: Record<string, KravResult[]> = { grundbetingelser: [], indkomst: [], raadighed: [], situationsbestemt: [] };
+  for (const r of results) map[r.category].push(r);
+  const all: Bucket[] = [
+    { key: "grundbetingelser", title: "Grundbetingelser", results: map.grundbetingelser },
+    { key: "indkomst", title: "Indkomst og beskæftigelse", results: map.indkomst },
+    { key: "raadighed", title: "Rådighed og tilmelding", results: map.raadighed },
+    { key: "situationsbestemt", title: "Situationsbestemte krav", results: map.situationsbestemt },
+  ];
+  return all.filter(b => b.results.length > 0);
+}
+
+type DecisionType = "godkendt" | "afslaaet" | "yderligere";
+
+function computeDecision(results: KravResult[]): DecisionType {
+  const hasFailed = results.some(r => r.passed === false);
+  if (hasFailed) return "afslaaet";
+  const hasDeep = results.some(r => r.requiresDeepAnalysis);
+  if (hasDeep) return "yderligere";
+  return "godkendt";
+}
 
 const STATUS = { PENDING: "pending", ACTIVE: "active", DONE: "done" } as const;
 type StatusType = typeof STATUS[keyof typeof STATUS];
@@ -207,6 +196,12 @@ function SpinnerIcon({ size = 22 }: { size?: number }) {
 }
 function PendingDot() {
   return (<svg width={22} height={22} viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#d0d5dd" strokeWidth="2" fill="none" /></svg>);
+}
+function WarningIcon({ size = 22 }: { size?: number }) {
+  return (<svg width={size} height={size} viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#f59e0b" /><path d="M11 7v5" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" /><circle cx="11" cy="15" r="1.2" fill="#fff" /></svg>);
+}
+function GrayIcon({ size = 22 }: { size?: number }) {
+  return (<svg width={size} height={size} viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#98a2b3" /><path d="M8 11h6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" /></svg>);
 }
 
 /* ───────────────────── FORM FIELD COMPONENT ───────────────────── */
@@ -317,26 +312,70 @@ function FormField({ field, value, onChange, showCpr, onToggleCpr, error }: Form
 /* ───────────────────── STEP NODE ───────────────────── */
 
 interface StepNodeProps {
-  krav: Krav;
+  krav: KravResult;
   status: StatusType;
   isLast: boolean;
   expanded: boolean;
   onToggle: () => void;
 }
 
+function getKravIcon(kr: KravResult) {
+  if (kr.passed === true) return <CheckIcon />;
+  if (kr.passed === false) return <CrossIcon />;
+  if (kr.source === "a-kasse-system") return <GrayIcon />;
+  if (kr.requiresDeepAnalysis) return <WarningIcon />;
+  return <GrayIcon />;
+}
+
+function getKravLineColor(kr: KravResult): string {
+  if (kr.passed === true) return "#1a6b4a";
+  if (kr.passed === false) return "#c0392b";
+  if (kr.requiresDeepAnalysis) return "#f59e0b";
+  return "#98a2b3";
+}
+
+function getKravSummary(kr: KravResult): string {
+  if (kr.passed === true) return `${kr.title} — opfyldt`;
+  if (kr.passed === false) return `${kr.title} — ikke opfyldt`;
+  if (kr.source === "a-kasse-system") return "Verificeres internt";
+  if (kr.finding.includes("Afventer")) return "Afventer data";
+  if (kr.requiresDeepAnalysis) return "Kræver juridisk vurdering";
+  return "Kan ikke vurderes";
+}
+
+function getDetailBg(kr: KravResult): string {
+  if (kr.passed === true) return "#f6faf8";
+  if (kr.passed === false) return "#fdf4f3";
+  if (kr.requiresDeepAnalysis) return "#fffbeb";
+  return "#f9fafb";
+}
+
+function getDetailBorderColor(kr: KravResult): string {
+  if (kr.passed === true) return "#1a6b4a";
+  if (kr.passed === false) return "#c0392b";
+  if (kr.requiresDeepAnalysis) return "#f59e0b";
+  return "#98a2b3";
+}
+
+function getVerdictText(kr: KravResult): string {
+  if (kr.passed === true) return "Opfyldt";
+  if (kr.passed === false) return "Ikke opfyldt";
+  if (kr.requiresDeepAnalysis) return "Kræver yderligere vurdering";
+  if (kr.source === "a-kasse-system") return "Afventer intern verifikation";
+  return "Afventer";
+}
+
 function StepNode({ krav, status, isLast, expanded, onToggle }: StepNodeProps) {
-  const detail = krav.detailPassed;
-  const passed = krav.passed;
   return (
     <div style={{ display: "flex", gap: 0, position: "relative" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 44, flexShrink: 0 }}>
         <div style={{ transition: "all 0.4s ease" }}>
-          {status === STATUS.DONE ? (passed ? <CheckIcon /> : <CrossIcon />) : status === STATUS.ACTIVE ? <SpinnerIcon /> : <PendingDot />}
+          {status === STATUS.DONE ? getKravIcon(krav) : status === STATUS.ACTIVE ? <SpinnerIcon /> : <PendingDot />}
         </div>
         {!isLast && (
           <div style={{
             width: 2, flex: 1, minHeight: 40,
-            backgroundColor: status === STATUS.DONE ? "#1a6b4a" : "#e5e7eb",
+            backgroundColor: status === STATUS.DONE ? getKravLineColor(krav) : "#e5e7eb",
             transition: "background-color 0.6s ease",
           }} />
         )}
@@ -350,7 +389,7 @@ function StepNode({ krav, status, isLast, expanded, onToggle }: StepNodeProps) {
           margin: "4px 0 0", fontSize: 13.5, fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4,
           color: status === STATUS.PENDING ? "#b0b8c4" : "#475467", transition: "color 0.3s",
         }}>
-          {status === STATUS.ACTIVE ? "Analyserer..." : status === STATUS.DONE ? (passed ? `${krav.title} er vurderet og godkendt` : `${krav.title} — ikke opfyldt`) : "Afventer"}
+          {status === STATUS.ACTIVE ? "Analyserer..." : status === STATUS.DONE ? getKravSummary(krav) : "Afventer"}
         </p>
         {status === STATUS.DONE && (
           <button onClick={onToggle} style={{
@@ -359,15 +398,16 @@ function StepNode({ krav, status, isLast, expanded, onToggle }: StepNodeProps) {
             border: "1px solid #1a6b4a", borderRadius: 6, cursor: "pointer", transition: "all 0.2s",
           }}>{expanded ? "Skjul detaljer" : "Klik for flere detaljer"}</button>
         )}
-        {expanded && status === STATUS.DONE && detail && (
+        {expanded && status === STATUS.DONE && (
           <div style={{
-            marginTop: 10, padding: "14px 18px", backgroundColor: passed ? "#f6faf8" : "#fdf4f3",
-            borderLeft: `3px solid ${passed ? "#1a6b4a" : "#c0392b"}`, borderRadius: "0 8px 8px 0", animation: "fadeSlide 0.3s ease",
+            marginTop: 10, padding: "14px 18px",
+            backgroundColor: getDetailBg(krav),
+            borderLeft: `3px solid ${getDetailBorderColor(krav)}`,
+            borderRadius: "0 8px 8px 0", animation: "fadeSlide 0.3s ease",
           }}>
             <div style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", color: "#344054", lineHeight: 1.6 }}>
-              <div style={{ fontWeight: 600, marginBottom: 4, color: passed ? "#1a6b4a" : "#c0392b" }}>{detail.verdict}</div>
-              <div>{detail.finding}</div>
-              <div style={{ marginTop: 8, fontSize: 12, color: "#667085", fontStyle: "italic" }}>Juridisk reference: {detail.legalRef}</div>
+              <div style={{ fontWeight: 600, marginBottom: 4, color: getDetailBorderColor(krav) }}>{getVerdictText(krav)}</div>
+              <div>{krav.finding}</div>
             </div>
           </div>
         )}
@@ -378,30 +418,76 @@ function StepNode({ krav, status, isLast, expanded, onToggle }: StepNodeProps) {
 
 /* ───────────────────── DECISION SECTION ───────────────────── */
 
-function DecisionSection({ visible, formData }: { visible: boolean; formData: Record<string, string> }) {
-  if (!visible) return null;
+const DECISION_CONFIG: Record<DecisionType, { label: string; bg: string; border: string; badgeBg: string; badgeColor: string }> = {
+  godkendt: { label: "GODKENDT", bg: "#f6faf8", border: "#1a6b4a", badgeBg: "#1a6b4a", badgeColor: "#fff" },
+  afslaaet: { label: "AFSLÅET", bg: "#fdf4f3", border: "#c0392b", badgeBg: "#c0392b", badgeColor: "#fff" },
+  yderligere: { label: "KRÆVER YDERLIGERE VURDERING", bg: "#fffbeb", border: "#f59e0b", badgeBg: "#f59e0b", badgeColor: "#fff" },
+};
+
+function DecisionSection({ visible, formData, kravResults }: { visible: boolean; formData: Record<string, string>; kravResults: KravResult[] }) {
+  if (!visible || kravResults.length === 0) return null;
   const name = formData.navn || "Ansøger";
+  const decision = computeDecision(kravResults);
+  const cfg = DECISION_CONFIG[decision];
+
+  const failedKrav = kravResults.filter(r => r.passed === false);
+  const deepKrav = kravResults.filter(r => r.requiresDeepAnalysis);
+
   return (
     <div style={{ animation: "fadeSlide 0.6s ease", marginTop: 20 }}>
-      <div style={{ padding: "28px 32px", backgroundColor: "#f6faf8", border: "2px solid #1a6b4a", borderRadius: 12 }}>
+      <div style={{ padding: "28px 32px", backgroundColor: cfg.bg, border: `2px solid ${cfg.border}`, borderRadius: 12 }}>
         <div style={{
-          display: "inline-block", padding: "4px 14px", backgroundColor: "#1a6b4a", color: "#fff",
+          display: "inline-block", padding: "4px 14px", backgroundColor: cfg.badgeBg, color: cfg.badgeColor,
           borderRadius: 20, fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
           marginBottom: 16, letterSpacing: "0.02em",
-        }}>GODKENDT</div>
+        }}>{cfg.label}</div>
         <h2 style={{ margin: "0 0 16px", fontFamily: "'Source Serif 4', Georgia, serif", fontSize: 22, fontWeight: 700, color: "#1d2939" }}>
           Afgørelse om ret til dagpenge
         </h2>
         <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14.5, color: "#344054", lineHeight: 1.7 }}>
           <p style={{ margin: "0 0 12px" }}>Kære {name},</p>
-          <p style={{ margin: "0 0 12px" }}>
-            På baggrund af de indsendte oplysninger og den automatiske vurdering af dine forhold,
-            er det konstateret, at du opfylder betingelserne for ret til dagpenge.
-          </p>
-          <p style={{ margin: "0 0 12px" }}>
-            Alle krav er gennemgået og fundet opfyldt. Din dagpengeret er vurderet gældende
-            fra den {formData.foerste_ledig ? new Date(formData.foerste_ledig).toLocaleDateString("da-DK") : "—"}.
-          </p>
+
+          {decision === "godkendt" && (
+            <>
+              <p style={{ margin: "0 0 12px" }}>
+                På baggrund af de indsendte oplysninger og den automatiske vurdering af dine forhold,
+                er det konstateret, at du opfylder betingelserne for ret til dagpenge.
+              </p>
+              <p style={{ margin: "0 0 12px" }}>
+                Alle krav er gennemgået og fundet opfyldt. Din dagpengeret er vurderet gældende
+                fra den {formData.foerste_ledig ? new Date(formData.foerste_ledig).toLocaleDateString("da-DK") : "—"}.
+              </p>
+            </>
+          )}
+
+          {decision === "afslaaet" && (
+            <>
+              <p style={{ margin: "0 0 12px" }}>
+                På baggrund af de indsendte oplysninger er det konstateret, at et eller flere krav
+                ikke er opfyldt på nuværende tidspunkt.
+              </p>
+              <ul style={{ margin: "0 0 12px", paddingLeft: 20 }}>
+                {failedKrav.map(kr => (
+                  <li key={kr.id} style={{ marginBottom: 4 }}><strong>{kr.title}:</strong> {kr.finding}</li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {decision === "yderligere" && (
+            <>
+              <p style={{ margin: "0 0 12px" }}>
+                Den automatiske vurdering har identificeret forhold, der kræver nærmere sagsbehandling.
+                Din sag oversendes til en sagsbehandler for endelig afgørelse.
+              </p>
+              <ul style={{ margin: "0 0 12px", paddingLeft: 20 }}>
+                {deepKrav.map(kr => (
+                  <li key={kr.id} style={{ marginBottom: 4 }}><strong>{kr.title}:</strong> {kr.finding}</li>
+                ))}
+              </ul>
+            </>
+          )}
+
           <p style={{ margin: 0, fontWeight: 500 }}>Med venlig hilsen,<br />Dagpengeafdelingen</p>
         </div>
       </div>
@@ -423,15 +509,17 @@ function DecisionSection({ visible, formData }: { visible: boolean; formData: Re
       </div>
 
       <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
-        <button style={{
-          padding: "12px 28px", fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-          color: "#fff", backgroundColor: "#1a6b4a", border: "none", borderRadius: 8, cursor: "pointer",
-          transition: "transform 0.15s, box-shadow 0.15s",
-        }}
-          onMouseOver={(e) => { (e.target as HTMLButtonElement).style.transform = "translateY(-1px)"; (e.target as HTMLButtonElement).style.boxShadow = "0 4px 12px rgba(26,107,74,0.3)"; }}
-          onMouseOut={(e) => { (e.target as HTMLButtonElement).style.transform = ""; (e.target as HTMLButtonElement).style.boxShadow = ""; }}>
-          Acceptér automatisk afgørelse
-        </button>
+        {decision === "godkendt" && (
+          <button style={{
+            padding: "12px 28px", fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
+            color: "#fff", backgroundColor: "#1a6b4a", border: "none", borderRadius: 8, cursor: "pointer",
+            transition: "transform 0.15s, box-shadow 0.15s",
+          }}
+            onMouseOver={(e) => { (e.target as HTMLButtonElement).style.transform = "translateY(-1px)"; (e.target as HTMLButtonElement).style.boxShadow = "0 4px 12px rgba(26,107,74,0.3)"; }}
+            onMouseOut={(e) => { (e.target as HTMLButtonElement).style.transform = ""; (e.target as HTMLButtonElement).style.boxShadow = ""; }}>
+            Acceptér automatisk afgørelse
+          </button>
+        )}
         <button style={{
           padding: "12px 28px", fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
           color: "#344054", backgroundColor: "#fff", border: "1px solid #d0d5dd", borderRadius: 8, cursor: "pointer",
@@ -482,6 +570,9 @@ function ApplicationDialog({ open, onClose, onSubmit }: ApplicationDialogProps) 
     });
     ids.push("har_vaeret_syg");
     if (formData.aarsag === "Andet") ids.push("aarsag_andet");
+    if (formData.aarsag === "Jeg har været syg og er nu rask") {
+      ids.push("foerste_sygedag", "sidste_sygedag");
+    }
     return ids;
   };
 
@@ -621,6 +712,18 @@ function ApplicationDialog({ open, onClose, onSubmit }: ApplicationDialogProps) 
                       field={{ id: "aarsag_andet", label: "Beskriv årsagen til din ledighed:", type: "textarea", placeholder: "Beskriv din situation..." }}
                       value={formData.aarsag_andet} onChange={set}
                       error={isFieldError("aarsag_andet", "main")} />
+                  )}
+                  {section.title === "Årsag til ledighed" && formData.aarsag === "Jeg har været syg og er nu rask" && (
+                    <>
+                      <FormField
+                        field={{ id: "foerste_sygedag", label: "Oplys din første sygedag", type: "date" }}
+                        value={formData.foerste_sygedag} onChange={set}
+                        error={isFieldError("foerste_sygedag", "main")} />
+                      <FormField
+                        field={{ id: "sidste_sygedag", label: "Oplys din sidste sygedag", type: "date" }}
+                        value={formData.sidste_sygedag} onChange={set}
+                        error={isFieldError("sidste_sygedag", "main")} />
+                    </>
                   )}
                 </div>
               ))}
@@ -791,11 +894,15 @@ function ApplicationDialog({ open, onClose, onSubmit }: ApplicationDialogProps) 
 /* ───────────────────── MAIN PAGE COMPONENT ───────────────────── */
 
 export default function KIFAssessmentPage() {
+  const caseCtx = useCase();
   const [phase, setPhase] = useState<"landing" | "form" | "assessment" | "done">("landing");
   const [formData, setFormData] = useState<Record<string, string>>({});
+  const [caseJSON, setCaseJSON] = useState<CaseJSON | null>(null);
+  const [kravResults, setKravResults] = useState<KravResult[]>([]);
   const [showCpr, setShowCpr] = useState(false);
-  const [stepStatuses, setStepStatuses] = useState<StatusType[]>(KRAV.map(() => STATUS.PENDING));
-  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
+  const [stepStatuses, setStepStatuses] = useState<StatusType[]>([]);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [collapsedBuckets, setCollapsedBuckets] = useState<Record<string, boolean>>({ grundbetingelser: true, indkomst: true, raadighed: true, situationsbestemt: true });
   const [currentStep, setCurrentStep] = useState(-1);
   const decisionRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -805,8 +912,16 @@ export default function KIFAssessmentPage() {
 
   const submitForm = (data: Record<string, string>) => {
     setFormData(data);
+    const json = formToJSON(data);
+    setCaseJSON(json);
+    caseCtx.setCaseJSON(json);
+    console.log("Case JSON:", JSON.stringify(json, null, 2));
+    const evalResults = quickEval(json);
+    setKravResults(evalResults);
+    caseCtx.setKravResults(evalResults);
+    console.log("Quick Eval:", evalResults);
     setPhase("assessment");
-    setStepStatuses(KRAV.map(() => STATUS.PENDING));
+    setStepStatuses(evalResults.map(() => STATUS.PENDING));
     setExpanded({});
     setCurrentStep(0);
   };
@@ -814,18 +929,20 @@ export default function KIFAssessmentPage() {
   const reset = () => {
     setPhase("landing");
     setFormData({});
-    setStepStatuses(KRAV.map(() => STATUS.PENDING));
+    setKravResults([]);
+    setStepStatuses([]);
     setExpanded({});
     setCurrentStep(-1);
   };
 
   useEffect(() => {
-    if (phase !== "assessment" || currentStep < 0 || currentStep >= KRAV.length) return;
+    if (phase !== "assessment" || currentStep < 0 || currentStep >= kravResults.length) return;
     setStepStatuses((prev) => { const n = [...prev]; n[currentStep] = STATUS.ACTIVE; return n; });
     setTimeout(() => { stepRefs.current[currentStep]?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 200);
+    const duration = getDurationMs(kravResults[currentStep]);
     const timer = setTimeout(() => {
       setStepStatuses((prev) => { const n = [...prev]; n[currentStep] = STATUS.DONE; return n; });
-      if (currentStep < KRAV.length - 1) {
+      if (currentStep < kravResults.length - 1) {
         setTimeout(() => setCurrentStep((s) => s + 1), 400);
       } else {
         setTimeout(() => {
@@ -833,9 +950,9 @@ export default function KIFAssessmentPage() {
           setTimeout(() => { decisionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 200);
         }, 600);
       }
-    }, KRAV[currentStep].durationMs);
+    }, duration);
     return () => clearTimeout(timer);
-  }, [currentStep, phase]);
+  }, [currentStep, phase, kravResults]);
 
   const showSteps = phase === "assessment" || phase === "done";
 
@@ -859,7 +976,7 @@ export default function KIFAssessmentPage() {
             color: "#fff", fontFamily: "'Source Serif 4', Georgia, serif", fontWeight: 700, fontSize: 18,
           }}>K</div>
           <div>
-            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Source Serif 4', Georgia, serif" }}>KIF</div>
+            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Source Serif 4', Georgia, serif" }}>KIForvaltning</div>
             <div style={{ fontSize: 11.5, color: "#667085", letterSpacing: "0.04em", textTransform: "uppercase" }}>Dagpengevurdering</div>
           </div>
         </div>
@@ -947,6 +1064,7 @@ export default function KIFAssessmentPage() {
                 <div>
                   <span style={{ color: "#667085", fontSize: 12 }}>Medlemsstatus</span>
                   <div style={{ fontWeight: 600, marginTop: 2 }}>Fuldtidsforsikret</div>
+                  <div style={{ fontWeight: 600, marginTop: 2 }}>Aktivt medlemskab</div>
                 </div>
                 <div>
                   <span style={{ color: "#667085", fontSize: 12 }}>Medlem siden</span>
@@ -977,11 +1095,11 @@ export default function KIFAssessmentPage() {
         )}
 
         {/* Progress bar */}
-        {showSteps && (
+        {showSteps && kravResults.length > 0 && (
           <div style={{ marginBottom: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
               <span style={{ fontSize: 13, color: "#667085" }}>
-                {phase === "done" ? "Alle krav vurderet" : `Vurderer krav ${currentStep + 1} af ${KRAV.length}...`}
+                {phase === "done" ? "Alle krav vurderet" : `Vurderer krav ${currentStep + 1} af ${kravResults.length}...`}
               </span>
               {phase === "done" && (
                 <button onClick={reset} style={{
@@ -993,27 +1111,78 @@ export default function KIFAssessmentPage() {
             <div style={{ height: 4, backgroundColor: "#e5e7eb", borderRadius: 2, overflow: "hidden" }}>
               <div style={{
                 height: "100%", borderRadius: 2, backgroundColor: "#1a6b4a", transition: "width 0.5s ease",
-                width: `${phase === "done" ? 100 : (stepStatuses.filter(s => s === STATUS.DONE).length / KRAV.length) * 100}%`,
+                width: `${phase === "done" ? 100 : (stepStatuses.filter(s => s === STATUS.DONE).length / kravResults.length) * 100}%`,
               }} />
             </div>
           </div>
         )}
 
-        {/* Steps */}
-        {showSteps && (
+        {/* Steps grouped in buckets */}
+        {showSteps && kravResults.length > 0 && (
           <div style={{ marginBottom: 8 }}>
-            {KRAV.map((krav, i) => (
-              <div key={krav.id} ref={el => { stepRefs.current[i] = el; }}>
-                <StepNode krav={krav} status={stepStatuses[i]} isLast={i === KRAV.length - 1}
-                  expanded={!!expanded[krav.id]} onToggle={() => setExpanded(p => ({ ...p, [krav.id]: !p[krav.id] }))} />
-              </div>
-            ))}
+            {groupIntoBuckets(kravResults).map((bucket) => {
+                const doneInBucket = bucket.results.filter((kr) => {
+                  const idx = kravResults.indexOf(kr);
+                  return stepStatuses[idx] === STATUS.DONE;
+                }).length;
+                const totalInBucket = bucket.results.length;
+                const isCollapsed = collapsedBuckets[bucket.key] !== false;
+                const toggleBucket = () => setCollapsedBuckets(p => ({ ...p, [bucket.key]: !isCollapsed }));
+
+                return (
+                  <div key={bucket.key} style={{ marginBottom: 16 }}>
+                    <div
+                      onClick={toggleBucket}
+                      style={{
+                        cursor: "pointer", userSelect: "none",
+                        display: "flex", alignItems: "center", gap: 8,
+                        paddingBottom: 8, borderBottom: "1px solid #e5e7eb",
+                      }}
+                    >
+                      <span style={{
+                        display: "inline-block", fontSize: 10, color: "#667085",
+                        transition: "transform 0.2s ease",
+                        transform: isCollapsed ? "rotate(0deg)" : "rotate(90deg)",
+                      }}>&#9654;</span>
+                      <h4 style={{
+                        fontSize: 12, fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
+                        color: "#667085", textTransform: "uppercase", letterSpacing: "0.04em",
+                        margin: 0, flex: 1,
+                      }}>{bucket.title}</h4>
+                      <span style={{ fontSize: 12, color: "#667085", fontFamily: "'DM Sans', sans-serif" }}>
+                        {doneInBucket}/{totalInBucket}
+                      </span>
+                    </div>
+                    <div style={{ height: 4, backgroundColor: "#e5e7eb", borderRadius: 2, overflow: "hidden", marginTop: 6 }}>
+                      <div style={{
+                        height: "100%", borderRadius: 2, backgroundColor: "#1a6b4a",
+                        transition: "width 0.5s ease",
+                        width: `${(doneInBucket / totalInBucket) * 100}%`,
+                      }} />
+                    </div>
+                    {!isCollapsed && (
+                      <div style={{ marginTop: 12 }}>
+                        {bucket.results.map((kr) => {
+                          const globalIdx = kravResults.indexOf(kr);
+                          const isLastInBucket = kr === bucket.results[bucket.results.length - 1];
+                          return (
+                            <div key={kr.id} ref={el => { stepRefs.current[globalIdx] = el; }}>
+                              <StepNode krav={kr} status={stepStatuses[globalIdx] || STATUS.PENDING} isLast={isLastInBucket}
+                                expanded={!!expanded[kr.id]} onToggle={() => setExpanded(p => ({ ...p, [kr.id]: !p[kr.id] }))} />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         )}
 
         {/* Decision */}
         <div ref={decisionRef}>
-          <DecisionSection visible={phase === "done"} formData={formData} />
+          <DecisionSection visible={phase === "done"} formData={formData} kravResults={kravResults} />
         </div>
       </div>
 

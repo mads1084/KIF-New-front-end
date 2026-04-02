@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
-import { FaFileAlt, FaBars, FaClipboardList } from "react-icons/fa";
+import { FaFileAlt, FaBars, FaClipboardList, FaUserShield } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import regularImage from "../../assets/images/regular.png";
 import { useSidebar } from "../../contexts/SidebarContext";
@@ -23,12 +23,20 @@ const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
     navigate("/ansoegning");
   };
 
+  const handleSagsbehandlerClick = () => {
+    navigate("/sagsbehandler");
+  };
+
   const isAktindsigtRoute = () => {
     return location.pathname === "/kis";
   };
 
   const isAnsoegningRoute = () => {
     return location.pathname === "/ansoegning";
+  };
+
+  const isSagsbehandlerRoute = () => {
+    return location.pathname === "/sagsbehandler";
   };
 
   return (
@@ -83,6 +91,17 @@ const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
             <FaClipboardList className="w-5 h-5 flex-shrink-0" />
             <span className="font-medium">KIAnsøgning</span>
           </button>
+          <button
+            onClick={handleSagsbehandlerClick}
+            className={`w-full text-left p-4 text-white transition-all duration-200 hover:bg-emerald-1000 cursor-pointer flex items-center space-x-3 ${
+              isSagsbehandlerRoute()
+                ? "bg-emerald-1000 border-l-4 border-white"
+                : "border-l-4 border-transparent"
+            }`}
+          >
+            <FaUserShield className="w-5 h-5 flex-shrink-0" />
+            <span className="font-medium">Sagsbehandler</span>
+          </button>
         </div>
       ) : (
         <div className="flex-1 py-2 flex flex-col items-center gap-2">
@@ -101,6 +120,14 @@ const Sidebar = forwardRef<SidebarRef, SidebarProps>((props, ref) => {
             title="KIAnsøgning"
           >
             <FaClipboardList className="w-4 h-4" />
+          </button>
+          <button
+            onClick={handleSagsbehandlerClick}
+            className={`p-2 text-white/70 hover:text-white rounded-lg hover:bg-white/10 transition-colors w-10 h-10 flex items-center justify-center
+              ${isSagsbehandlerRoute() ? "bg-white/10 text-white" : ""}`}
+            title="Sagsbehandler"
+          >
+            <FaUserShield className="w-4 h-4" />
           </button>
         </div>
       )}

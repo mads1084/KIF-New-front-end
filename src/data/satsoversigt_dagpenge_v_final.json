@@ -1,0 +1,1391 @@
+{
+  "_metadata": {
+    "titel": "Satsoversigt for dagpenge/arbejdsløshedsforsikring",
+    "genereret": "2026-03-23",
+    "kilde": "KIF Legal Graph RAG — juridisk database over dansk arbejdsløshedsforsikringslovgivning",
+    "metode": "Systematisk søgning via search_provisions + get_provision + get_cross_references + get_document_info",
+    "gennemgang": "3 + supplement (BEK-niveau indkomstkrav)",
+    "noter": "Alle beløb er angivet i det niveau der fremgår af bestemmelsen. Inkluderer både LOV-basisår (2017) og gældende BEK-regulerede beløb (2025/2026). Beløb reguleres årligt."
+  },
+  "dagpengemaksimum": {
+    "beskrivelse": "Dagpengenes højeste beløb (loft)",
+    "vaerdier": [
+      {
+        "krav": "Månedligt maksimum for fuldtidsforsikrede",
+        "vaerdi": "18.113 kr. pr. måned (2016-niveau)",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§47_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Reguleres årligt pr. 1. januar med 1,7 pct. tillagt tilpasningsprocenten. Fradrages 0,75 pct. for finansårene 2020-2023."
+      },
+      {
+        "krav": "Månedligt maksimum for deltidsforsikrede",
+        "vaerdi": "2/3 af fuldtidssatsen",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§70_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Afrundes til nærmeste hele kronebeløb."
+      },
+      {
+        "krav": "Dagpenge højst 90 pct. af beregningsgrundlag",
+        "vaerdi": "90 pct.",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§9_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Individuel beregning kan ikke overstige dagpengenes højeste beløb (medmindre beskæftigelsestillæg)."
+      }
+    ]
+  },
+  "beskæftigelsestillæg": {
+    "beskrivelse": "Forhøjet dagpengesats for medlemmer med langvarig beskæftigelse",
+    "vaerdier": [
+      {
+        "krav": "Maksimal sats med beskæftigelsestillæg",
+        "vaerdi": "118,86 pct. af dagpengenes højeste beløb",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§17_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Dog højst 90 pct. af hidtidig indtægt."
+      },
+      {
+        "krav": "Uafbrudt medlemskab af a-kasse",
+        "vaerdi": "mindst 4 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§17_stk2_nr1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Fuldtidsbeskæftigelse forud for indplacering",
+        "vaerdi": "mindst 2 år inden for de sidste 3 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Indkomstkrav ved indplacering via indkomstkrav (fuldtid, 2026-niveau)",
+        "vaerdi": "573.264 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Indkomstkrav ved indplacering via indkomstkrav (deltid, 2026-niveau)",
+        "vaerdi": "382.176 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Indkomstkrav ved indplacering via indkomstkrav (fuldtid, 2025-niveau)",
+        "vaerdi": "547.008 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-014§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk)",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Indkomstkrav ved indplacering via indkomstkrav (deltid, 2025-niveau)",
+        "vaerdi": "364.680 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-014§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk)",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Maks. medregning pr. måned (2026-niveau)",
+        "vaerdi": "23.886 kr.",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Timer med beskæftigelsestillæg (fuldtid)",
+        "vaerdi": "481 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-001§17_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Jf. lovens § 48, stk. 7."
+      },
+      {
+        "krav": "Overførsel af beskæftigelsestillæg til ny dagpengeperiode",
+        "vaerdi": "inden for 3 år fra indplaceringstidspunktet",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§17_stk7",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      }
+    ]
+  },
+  "dimittendsats": {
+    "beskrivelse": "Faste dagpengesatser for dimittender (nyuddannede)",
+    "vaerdier": [
+      {
+        "krav": "Dimittend med forsørgerpligt",
+        "vaerdi": "82 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§11_stk2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Dimittend uden forsørgerpligt (første 481/390 timer)",
+        "vaerdi": "71,5 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§11_stk2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "481 timer for fuldtidsforsikrede, 390 timer for deltidsforsikrede."
+      },
+      {
+        "krav": "Dimittend uden forsørgerpligt, under 30 år (efter 481/390 timer)",
+        "vaerdi": "49,17 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§11_stk2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Dimittend uden forsørgerpligt, 30 år eller derover (efter 481/390 timer)",
+        "vaerdi": "62,11 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§11_stk2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Ventetid for individuel satsberegning efter dimittendrettigheder",
+        "vaerdi": "6 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-001§20_stk0_chunk10",
+        "dokument": "VEJ om beregning af dagpengesatsen",
+        "gyldighedsdato": null,
+        "noter": "Individuel beregning kun hvis den giver højere sats end den faste sats."
+      },
+      {
+        "krav": "Dimittend dagpengeperiode",
+        "vaerdi": "1 år ydelsesperiode inden for 2 år referenceperiode",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§55_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Dimittend indplaceret via § 53, stk. 14, nr. 1 – forsørger",
+        "vaerdi": "82 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-014§12_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk)",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Dimittend indplaceret via § 53, stk. 14, nr. 1 – ikke-forsørger",
+        "vaerdi": "71,5 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-014§12_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk)",
+        "gyldighedsdato": "2025-06-27"
+      }
+    ]
+  },
+  "indkomstkrav": {
+    "beskrivelse": "Indkomstkrav for optjening af dagpengeret",
+    "vaerdier": [
+      {
+        "krav": "Samlet indkomstkrav, fuldtidsforsikret (2017-niveau)",
+        "vaerdi": "223.428 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§53_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Reguleres årligt."
+      },
+      {
+        "krav": "Maks. medregning pr. måned, fuldtid (2017-niveau)",
+        "vaerdi": "18.619 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§53_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Samlet indkomstkrav, deltidsforsikret (2017-niveau)",
+        "vaerdi": "148.956 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§53_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Maks. medregning pr. måned, deltid (2017-niveau)",
+        "vaerdi": "12.413 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§53_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Optjeningsperiode",
+        "vaerdi": "3 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§53_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "beskæftigelseskrav_genoptjening": {
+    "beskrivelse": "Løntimekrav for genoptjening af dagpengeret",
+    "vaerdier": [
+      {
+        "krav": "Genoptjening, fuldtidsforsikret",
+        "vaerdi": "mindst 1.924 løntimer inden for de seneste 3 år",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§53_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Genoptjening, deltidsforsikret",
+        "vaerdi": "mindst 1.258 løntimer inden for de seneste 3 år",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§53_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Genoptjening (BEK), fuldtidsforsikret",
+        "vaerdi": "mindst 1.924 løntimer i optjeningsperioden",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-005§12_stk1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Genoptjening (BEK), deltidsforsikret",
+        "vaerdi": "mindst 1.258 løntimer i optjeningsperioden",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-005§12_stk1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Løntimekrav forud for ledighed, fuldtid",
+        "vaerdi": "mindst 296 løntimer i 12 uger/3 måneder",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-018§2_stk3",
+        "dokument": "BEK om rådighed",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Løntimekrav forud for ledighed, deltid",
+        "vaerdi": "mindst 148 løntimer i 12 uger/3 måneder",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-018§2_stk3",
+        "dokument": "BEK om rådighed",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "dagpengeperiode": {
+    "beskrivelse": "Dagpengeperiodens varighed (ydelsesperiode og referenceperiode)",
+    "vaerdier": [
+      {
+        "krav": "Ordinær ydelsesperiode (lønmodtager/selvstændig)",
+        "vaerdi": "2 år (sammenlagt) inden for 3 år (referenceperiode)",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§55_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Ydelsesperiode i timer, fuldtid",
+        "vaerdi": "3.848 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-009§2_stk0",
+        "dokument": "VEJ om dagpengeperioden",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Ydelsesperiode i timer, deltid",
+        "vaerdi": "3.120 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-009§2_stk0",
+        "dokument": "VEJ om dagpengeperioden",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Forlængelse af ydelsesperiode (maksimum, fuldtid)",
+        "vaerdi": "op til 1.924 timer inden for 18 måneder",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-005§24_stk1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Forlængelse af ydelsesperiode (maksimum, deltid)",
+        "vaerdi": "op til 1.560 timer inden for 18 måneder",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-005§24_stk1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Forlængelse: forholdet ydelse-til-referenceperiode",
+        "vaerdi": "1 løntime giver ret til 2 timers ydelsesperiode og 3 timers referenceperiode",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-005§24_stk3",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Dimittend ydelsesperiode",
+        "vaerdi": "1 år inden for 2 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§55_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "beregningsperiode": {
+    "beskrivelse": "Perioden der bruges til beregning af dagpengesats",
+    "vaerdier": [
+      {
+        "krav": "Beregningsperiode",
+        "vaerdi": "12 måneder med højeste indtægt inden for de seneste 24 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§7_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15"
+      },
+      {
+        "krav": "Forlænget beregningsperiode",
+        "vaerdi": "op til 36 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-001§7_stk1",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Kan forlænges med perioder med sygdom, barsel, pasning af handicappet barn mv."
+      },
+      {
+        "krav": "Beregningsperiode efterløn",
+        "vaerdi": "3 måneder (månedsindberetninger) eller 12 uger (uge-/14-dagesindberetninger) inden for de seneste 5 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74l_stk11",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "udbetaling_timetal": {
+    "beskrivelse": "Timetal for udbetaling af dagpenge pr. måned",
+    "vaerdier": [
+      {
+        "krav": "Månedligt timetal, fuldtidsforsikret",
+        "vaerdi": "160,33 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§46_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Månedligt timetal, deltidsforsikret",
+        "vaerdi": "130 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§46_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Teknisk belægning pr. dag, fuldtid",
+        "vaerdi": "7,4 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-002§33_stk0_chunk6",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Teknisk belægning pr. dag, deltid",
+        "vaerdi": "6 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-002§33_stk0_chunk6",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "supplerende_dagpenge": {
+    "beskrivelse": "Tidsbegrænsning og krav for supplerende dagpenge",
+    "vaerdier": [
+      {
+        "krav": "Tidsbegrænsning for supplerende dagpenge",
+        "vaerdi": "30 uger inden for de seneste 104 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-013§41_stk1",
+        "dokument": "Bekendtgørelse om udbetaling af dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Fuld sædvanlig ugentlig arbejdstid, fuldtid",
+        "vaerdi": "37 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-002§41_stk0_chunk3",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Fuld sædvanlig ugentlig arbejdstid, deltid",
+        "vaerdi": "30 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-002§41_stk0_chunk3",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Maksimal forlængelse af supplerende dagpenge",
+        "vaerdi": "12 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§73_stk4_nr2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Forlængelse af selvstændig virksomhed: 4 uger pr. måned uden dagpenge. Krav: virksomhed registreret i min. 6 måneder."
+      },
+      {
+        "krav": "Genoptjening af ret til supplerende dagpenge (fuldtid) - løntimer",
+        "vaerdi": "mere end 146 løntimer i hver af 6 månedsindberetninger inden for 12 måneder",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§60_stk7",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Genoptjening af ret til supplerende dagpenge (deltid) - løntimer",
+        "vaerdi": "mere end 118 løntimer i hver af 6 månedsindberetninger inden for 12 måneder",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§73_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Genoptjening af ret til supplerende dagpenge (fuldtid) - ugeindberetninger",
+        "vaerdi": "mere end 34 løntimer i hver af 26 ugeindberetninger inden for 12 måneder",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§60_stk7",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Genoptjening af ret til supplerende dagpenge (deltid) - ugeindberetninger",
+        "vaerdi": "mere end 27 løntimer i hver af 26 ugeindberetninger inden for 12 måneder",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§73_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Minimumskrav for rimeligt arbejde (daglig arbejdstid)",
+        "vaerdi": "mindst 4 timer dagligt eller 20 timer ugentligt",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-003§22_stk4_nr2",
+        "dokument": "Bekendtgørelse om selvforskyldt ledighed",
+        "gyldighedsdato": "2026-01-16"
+      }
+    ]
+  },
+  "selvforskyldt_ledighed": {
+    "beskrivelse": "Karantæne ved selvforskyldt ledighed",
+    "vaerdier": [
+      {
+        "krav": "Karantæne for selvforskyldt ledighed",
+        "vaerdi": "3 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-003§24_stk1",
+        "dokument": "Bekendtgørelse om selvforskyldt ledighed",
+        "gyldighedsdato": "2026-01-16"
+      },
+      {
+        "krav": "Karantæne i timer, fuldtidsforsikret",
+        "vaerdi": "111 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-003§24_stk2",
+        "dokument": "Bekendtgørelse om selvforskyldt ledighed",
+        "gyldighedsdato": "2026-01-16"
+      },
+      {
+        "krav": "Karantæne i timer, deltidsforsikret",
+        "vaerdi": "90 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-003§24_stk3",
+        "dokument": "Bekendtgørelse om selvforskyldt ledighed",
+        "gyldighedsdato": "2026-01-16"
+      }
+    ]
+  },
+  "sanktioner": {
+    "beskrivelse": "Sanktioner ved svig og uagtsomhed",
+    "vaerdier": [
+      {
+        "krav": "Maksimal karantæne ved svig",
+        "vaerdi": "962 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-012§5_stk1",
+        "dokument": "Bekendtgørelse om sanktion til medlemmer af en arbejdsløshedskasse",
+        "gyldighedsdato": "2016-06-30"
+      },
+      {
+        "krav": "Karantæne ved forsøg på svig",
+        "vaerdi": "74 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-012§5_stk3",
+        "dokument": "Bekendtgørelse om sanktion til medlemmer af en arbejdsløshedskasse",
+        "gyldighedsdato": "2016-06-30"
+      },
+      {
+        "krav": "Karantæne ved dokumentfalsk eller komplot",
+        "vaerdi": "962 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-012§5_stk4",
+        "dokument": "Bekendtgørelse om sanktion til medlemmer af en arbejdsløshedskasse",
+        "gyldighedsdato": "2016-06-30"
+      },
+      {
+        "krav": "Maksimal karantæne ved uagtsomhed",
+        "vaerdi": "37 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-012§7_stk1",
+        "dokument": "Bekendtgørelse om sanktion til medlemmer af en arbejdsløshedskasse",
+        "gyldighedsdato": "2016-06-30"
+      },
+      {
+        "krav": "Karantæne ved uagtsomhed (beløb højst 25 gange dagpengenes højeste dagbeløb)",
+        "vaerdi": "20 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-012§7_stk2",
+        "dokument": "Bekendtgørelse om sanktion til medlemmer af en arbejdsløshedskasse",
+        "gyldighedsdato": "2016-06-30",
+        "noter": "Gælder når det fejludbetalte beløb højst udgør 25 gange dagpengenes højeste dagbeløb for fuldtidsforsikrede."
+      },
+      {
+        "krav": "Karantæne ved anden forseelse over for kassen",
+        "vaerdi": "højst 37 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§87_stk2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Forældelsesfrist for karantæne",
+        "vaerdi": "2 år fra ikrafttræden",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§87_stk3",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "karens": {
+    "beskrivelse": "Løbende karens ved manglende beskæftigelse",
+    "vaerdier": [
+      {
+        "krav": "Karensperiode",
+        "vaerdi": "hver 4. måned",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-002§35_stk0",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null,
+        "noter": "Karens pålægges medmindre medlemmet har haft beskæftigelse i et vist omfang."
+      },
+      {
+        "krav": "Karensbeløb",
+        "vaerdi": "1 dags dagpenge for medlemmet",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-002§35_stk0",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "selvstændig_virksomhed": {
+    "beskrivelse": "Venteperioder ved ophør med selvstændig virksomhed",
+    "vaerdier": [
+      {
+        "krav": "Venteperiode ved ophør (CVR, bortforpagtning, udtræden, omdannelse)",
+        "vaerdi": "3 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-009§22_stk1",
+        "dokument": "Bekendtgørelse om selvstændig virksomhed i dagpengesystemet",
+        "gyldighedsdato": "2023-09-21"
+      },
+      {
+        "krav": "Venteperiode ved konkurs/tvangsauktion",
+        "vaerdi": "1 uge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-009§22_stk2",
+        "dokument": "Bekendtgørelse om selvstændig virksomhed i dagpengesystemet",
+        "gyldighedsdato": "2023-09-21"
+      },
+      {
+        "krav": "Venteperiode ved ophør på tro og love",
+        "vaerdi": "2 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-009§22_stk3",
+        "dokument": "Bekendtgørelse om selvstændig virksomhed i dagpengesystemet",
+        "gyldighedsdato": "2023-09-21",
+        "noter": "Kan forkortes til min. 3 uger hvis ophør dokumenteres inden 2 måneder."
+      },
+      {
+        "krav": "Frist for registrering som ophørt hos Erhvervsstyrelsen",
+        "vaerdi": "6 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§57b_stk2_nr2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Jobsøgningsperiode efter ophør med hovedbeskæftigelse",
+        "vaerdi": "6 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-009§24_stk1",
+        "dokument": "Bekendtgørelse om selvstændig virksomhed i dagpengesystemet",
+        "gyldighedsdato": "2023-09-21",
+        "noter": "Må ikke påbegynde ny selvstændig virksomhed i denne periode."
+      },
+      {
+        "krav": "Maks. 1 ophør med selvstændig virksomhed pr. dagpengeperiode",
+        "vaerdi": "1 gang",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-009§23_stk1",
+        "dokument": "Bekendtgørelse om selvstændig virksomhed i dagpengesystemet",
+        "gyldighedsdato": "2023-09-21"
+      }
+    ]
+  },
+  "g_dage": {
+    "beskrivelse": "Dagpengegodtgørelse for 1. og 2. ledighedsdag (G-dage)",
+    "vaerdier": [
+      {
+        "krav": "Antal G-dage",
+        "vaerdi": "2 dage (1. og 2. ledighedsdag)",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-B02§1_stk1",
+        "dokument": "BEK om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "G-dag beløb (hel G-dag)",
+        "vaerdi": "dagpengenes højeste beløb for én dag",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-B02§5_stk1",
+        "dokument": "BEK om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null,
+        "noter": "Jf. § 47, stk. 2 i loven."
+      },
+      {
+        "krav": "Maks. antal G-dag-betalinger pr. kalenderår til samme medlem",
+        "vaerdi": "16 gange",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-008§1_stk6",
+        "dokument": "VEJ om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Fuld beskæftigelse for G-dag-beregning",
+        "vaerdi": "7,4 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-008§Til § 3 - Ledighed m.v._stk0_chunk18",
+        "dokument": "VEJ om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "forsikringsskift": {
+    "beskrivelse": "Krav for overflytning mellem fuldtids- og deltidsforsikring",
+    "vaerdier": [
+      {
+        "krav": "Overflytning deltid → fuldtid (månedsindberetning)",
+        "vaerdi": "mere end 390 løntimer i en sammenhængende periode på 3 måneder",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§68_stk3_nr1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Overflytning deltid → fuldtid (uge-/14-dagesindberetning)",
+        "vaerdi": "mere end 360 løntimer i en sammenhængende periode på 12 uger",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§68_stk3_nr1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Deltidsforsikring: maks. timer pr. måned",
+        "vaerdi": "højst 130 timer om måneden",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§67_stk1_nr1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "feriedagpenge": {
+    "beskrivelse": "Optjening og udbetaling af feriedagpenge",
+    "vaerdier": [
+      {
+        "krav": "Optjening pr. udbetalingsperiode (fuld udbetaling)",
+        "vaerdi": "2,08 dage",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-010§3_stk1",
+        "dokument": "BEK om feriedagpenge",
+        "gyldighedsdato": null,
+        "noter": "Baseret på 160,33 timer for fuldtid / 130 timer for deltid."
+      }
+    ]
+  },
+  "efterløn": {
+    "beskrivelse": "Satser, krav og grænser relateret til efterløn",
+    "vaerdier": [
+      {
+        "krav": "Efterlønsalder",
+        "vaerdi": "3 år før folkepensionsalderen",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74_stk3",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "For personer født efter 31. december 1962."
+      },
+      {
+        "krav": "Tilmelding til efterlønsordning",
+        "vaerdi": "senest 15 år før efterlønsalderen",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§75_stk1_nr2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Efterlønsbidrag: mindst antal år ved efterlønsalderen (fortrydelsesordning)",
+        "vaerdi": "mindst 15 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-016§5_stk0_chunk7",
+        "dokument": "VEJ om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Fradrag i selvstændig virksomhed (400-timer ordning) under efterløn",
+        "vaerdi": "80,17 timer fradrag pr. måned",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74f_stk5",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Minimum fradrag ved virksomhed i mindre omfang under efterløn",
+        "vaerdi": "mindst 52 timer pr. måned",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74f_stk5",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Maks. efterløn i et kalenderår",
+        "vaerdi": "962 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74f_stk5",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Nedsættelse af skattefri præmie ved manglende bidrag",
+        "vaerdi": "4 pct. pr. års manglende bidragsbetaling",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§75_stk5",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Løntimekrav for skattefri præmie",
+        "vaerdi": "mindst 481 løntimer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74m_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Efterløn: timer med beskæftigelsestillæg ved genoptjening via beskæftigelseskrav",
+        "vaerdi": "3.848 løntimer (fuldtid) / 3.120 løntimer (deltid)",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§48_stk9_nr2",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "medlemsbidrag": {
+    "beskrivelse": "Medlemsbidrag til a-kasse",
+    "vaerdier": [
+      {
+        "krav": "Samlet medlemsbidrag består af",
+        "vaerdi": "3 dele: bidrag til arbejdsløshedsforsikringen, administrationsbidrag, bidrag til ATP",
+        "forsikringsstatus": "begge",
+        "provision_id": "L4-B07§1_stk1",
+        "dokument": "BEK om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Betalingsfrist",
+        "vaerdi": "3 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L4-B07§12_stk1",
+        "dokument": "BEK om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Karantæne ved for sen betaling",
+        "vaerdi": "7,4 timer effektiv karantæne",
+        "forsikringsstatus": "begge",
+        "provision_id": "L4-B07§12_stk1",
+        "dokument": "BEK om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Afbrydelse i forsikring (maks. for efterbetaling)",
+        "vaerdi": "højst 8 uger inden for 12 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-016§26_stk0_chunk13",
+        "dokument": "VEJ om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "rådighed": {
+    "beskrivelse": "Rådighedskrav og transporttid",
+    "vaerdier": [
+      {
+        "krav": "Fuld sædvanlig arbejdstid, deltid",
+        "vaerdi": "30 timer om ugen",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-016§8_stk1",
+        "dokument": "BEK om rådighed",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Minimum daglig/ugentlig arbejdstid ved rimeligt arbejde",
+        "vaerdi": "mindst 4 timer dagligt eller 20 timer ugentligt",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-003§22_stk4_nr2",
+        "dokument": "Bekendtgørelse om selvforskyldt ledighed",
+        "gyldighedsdato": "2026-01-16"
+      }
+    ]
+  },
+  "omregning": {
+    "beskrivelse": "Omregningsfaktorer mellem uger, måneder og timer",
+    "vaerdier": [
+      {
+        "krav": "1 uge = timer (fuldtid)",
+        "vaerdi": "37 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L4-B09§7_stk4",
+        "dokument": "BEK om en aktiv beskæftigelsesindsats",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "1 måned = timer (fuldtid)",
+        "vaerdi": "160,33 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L4-B09§7_stk4",
+        "dokument": "BEK om en aktiv beskæftigelsesindsats",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "1 uge = timer (deltid)",
+        "vaerdi": "30 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L4-B09§7_stk4",
+        "dokument": "BEK om en aktiv beskæftigelsesindsats",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "1 måned = timer (deltid)",
+        "vaerdi": "130 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L4-B09§7_stk4",
+        "dokument": "BEK om en aktiv beskæftigelsesindsats",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "sygdom": {
+    "beskrivelse": "Dagpenge under sygdom",
+    "vaerdier": [
+      {
+        "krav": "Dagpenge under de første dages sygdom",
+        "vaerdi": "14 dage",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-013§33_stk1_nr1",
+        "dokument": "Bekendtgørelse om udbetaling af dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "Medlemmet modtager dagpenge fra a-kassen under de første 14 dages sygdom."
+      }
+    ]
+  },
+  "uddannelsesløft": {
+    "beskrivelse": "Dagpengesats under uddannelsesløft",
+    "vaerdier": [
+      {
+        "krav": "Sats under erhvervsuddannelse § 96 (pulje til uddannelsesløft)",
+        "vaerdi": "80 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§48a_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Dog højst medlemmets hidtidige dagpengesats."
+      },
+      {
+        "krav": "Sats under erhvervsuddannelse § 97a (uddannelsesløft)",
+        "vaerdi": "110 pct. af hidtidig dagpengesats, dog højst 110 pct. af højeste dagpenge",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§48a_stk3",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Fritagelse for efterlønsbidrag under uddannelse: indkomstgrænse",
+        "vaerdi": "120,67 pct. af højeste dagpengesats",
+        "forsikringsstatus": "begge",
+        "provision_id": "L4-B07§8_stk1_nr4",
+        "dokument": "BEK om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null,
+        "noter": "Samlede indtægter fra beskæftigelse, SU, SVU, elevløn eller lignende under uddannelsen."
+      }
+    ]
+  },
+  "mindsteudbetaling": {
+    "beskrivelse": "Mindsteudbetalingsregel for dagpenge",
+    "vaerdier": [
+      {
+        "krav": "Mindsteudbetaling, fuldtidsforsikret",
+        "vaerdi": "mindst 14,8 timer i en måned",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-002§5_stk0",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Mindsteudbetaling, deltidsforsikret",
+        "vaerdi": "mindst 12 timer i en måned",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-002§5_stk0",
+        "dokument": "VEJ om udbetaling af dagpenge",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "dimittendkrav": {
+    "beskrivelse": "Krav til erhvervsmæssig uddannelse for dimittendrettigheder",
+    "vaerdier": [
+      {
+        "krav": "Uddannelsens normerede varighed",
+        "vaerdi": "mindst 18 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§54_stk1_nr1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "skattefri_præmie": {
+    "beskrivelse": "Skattefri præmie i efterlønsordningen",
+    "vaerdier": [
+      {
+        "krav": "Løntimekrav pr. præmieportion",
+        "vaerdi": "481 løntimer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74m_stk8",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Maks. timer for fuld optjening (uafbrudt fuldtid i 3 år)",
+        "vaerdi": "5.772 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§74m_stk12",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Nedsættelse pr. års manglende bidragsbetaling",
+        "vaerdi": "4 pct.",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§75_stk5",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "beskæftigelseskonto": {
+    "beskrivelse": "Beskæftigelseskonto og nedskrivning",
+    "vaerdier": [
+      {
+        "krav": "Nedskrivning af beskæftigelseskonto pr. udbetalt dagpengetime",
+        "vaerdi": "0,5 timer",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-005§24_stk4",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27"
+      },
+      {
+        "krav": "Afkortning af forlænget dagpengeperiode: nedskrivning fuldtid",
+        "vaerdi": "80,17 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-004§12_stk2",
+        "dokument": "Bekendtgørelse om dagpengeperioden",
+        "gyldighedsdato": "2025-06-26"
+      },
+      {
+        "krav": "Afkortning af forlænget dagpengeperiode: nedskrivning deltid",
+        "vaerdi": "65 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-004§12_stk2",
+        "dokument": "Bekendtgørelse om dagpengeperioden",
+        "gyldighedsdato": "2025-06-26"
+      },
+      {
+        "krav": "Maks. forlængelse efter afkortning, fuldtid",
+        "vaerdi": "1.763,67 timer",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-004§12_stk2",
+        "dokument": "Bekendtgørelse om dagpengeperioden",
+        "gyldighedsdato": "2025-06-26"
+      },
+      {
+        "krav": "Maks. forlængelse efter afkortning, deltid",
+        "vaerdi": "1.430 timer",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-004§12_stk2",
+        "dokument": "Bekendtgørelse om dagpengeperioden",
+        "gyldighedsdato": "2025-06-26"
+      }
+    ]
+  },
+  "eøs_udland": {
+    "beskrivelse": "Forsikringsperioder fra EØS-lande",
+    "vaerdier": [
+      {
+        "krav": "Maks. afbrydelse i forsikring fra EØS-land for medregning",
+        "vaerdi": "i alt 8 uger inden for 12 måneder",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-018§6_stk1",
+        "dokument": "BEK om arbejdsløshedsforsikring ved arbejde m.v. inden for EØS",
+        "gyldighedsdato": null
+      }
+    ]
+  },
+  "medlemskab": {
+    "beskrivelse": "Krav til medlemskab af a-kasse",
+    "vaerdier": [
+      {
+        "krav": "Efterlønsbidrag: medlemmer født 1976-1977",
+        "vaerdi": "30 års medlemskab og bidragsbetaling, senest fra det fyldte 32. år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§74a_stk6",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      },
+      {
+        "krav": "Vejledning om efterlønsbidrag for medlemmer under 30 år",
+        "vaerdi": "A-kassen skal vejlede om muligheden for at betale efterlønsbidrag forud for det fyldte 30. år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L4-B07§27_stk5",
+        "dokument": "BEK om betaling af medlems- og efterlønsbidrag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Medlemsperiodekrav (lov) for dagpengeret",
+        "vaerdi": "1 års medlemskab",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§53_stk1",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Jf. lovens § 53, stk. 1: Et medlem har ret til dagpenge, hvis pågældende har været medlem i mindst 1 år."
+      }
+    ]
+  },
+  "diverse_frister": {
+    "beskrivelse": "Diverse frister og tidsgrænser",
+    "vaerdier": [
+      {
+        "krav": "Tro- og loveerklæring: arbejdsgivers frist for anmodning",
+        "vaerdi": "14 dage efter fratrædelse",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-008§7 og 8 - Tro- og loveerklæring og betalingstidspunkt_stk0",
+        "dokument": "VEJ om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Arbejdsfordeling: maks. varighed",
+        "vaerdi": "13 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-008§Til § 5 – Arbejdsfordeling_stk0",
+        "dokument": "VEJ om dagpengegodtgørelse for 1. og 2. ledighedsdag",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Iværksættervirksomhed: krav til driftsperiode for forlængelse af optjeningsperiode",
+        "vaerdi": "mindst 2 år, højst 5 år",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-012§22 a_stk2_chunk9",
+        "dokument": "VEJ om indkomst- og beskæftigelseskravet",
+        "gyldighedsdato": null
+      },
+      {
+        "krav": "Jobrettet uddannelse: varighed",
+        "vaerdi": "6 uger",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-011§7_stk2",
+        "dokument": "BEK om jobrettet uddannelse",
+        "gyldighedsdato": null,
+        "noter": "37 timer/uge for fuldtid, 30 timer/uge for deltid."
+      }
+    ]
+  },
+  "indkomstkrav_bek_2025": {
+    "beskrivelse": "Regulerede indkomstkrav og indkomstloft for 2025 (BEK-niveau, gældende)",
+    "vaerdier": [
+      {
+        "krav": "Indkomstkrav, fuldtidsforsikret (2025)",
+        "vaerdi": "273.504 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-005§4_stk1_nr1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "Gældende BEK (L2-005, ikke-historisk). Reguleret fra LOV-basisår 223.428 kr. (2017)."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, fuldtidsforsikret (2025)",
+        "vaerdi": "22.792 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-005§4_stk1_nr1",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "= 273.504 / 12. Reguleret fra LOV-basisår 18.619 kr. (2017)."
+      },
+      {
+        "krav": "Indkomstkrav, deltidsforsikret (2025)",
+        "vaerdi": "182.340 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-005§4_stk1_nr2",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "= 2/3 af fuldtidskravet (273.504 × 2/3 = 182.336, afrundet til delelig med 12). Reguleret fra LOV-basisår 148.956 kr. (2017)."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, deltidsforsikret (2025)",
+        "vaerdi": "15.195 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-005§4_stk1_nr2",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "= 182.340 / 12. Reguleret fra LOV-basisår 12.413 kr. (2017)."
+      },
+      {
+        "krav": "Reguleringsregel",
+        "vaerdi": "Reguleres 1 gang årligt pr. 1. januar",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-005§4_stk3",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "Offentliggøres i vejledning om satser mv. på arbejdsløshedsforsikringens område."
+      },
+      {
+        "krav": "Gældende indkomstkrav bestemmes af indplaceringsår",
+        "vaerdi": "Indkomstkrav og indkomstloft gældende i det år, medlemmet indplaceres",
+        "forsikringsstatus": "begge",
+        "provision_id": "L2-005§4_stk2",
+        "dokument": "Bekendtgørelse om indkomst- og beskæftigelseskravet for ret til dagpenge",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "Indkomst optjent i tidligere år vurderes mod årets indkomstloft."
+      }
+    ]
+  },
+  "indkomstkrav_bek_2026": {
+    "beskrivelse": "Regulerede indkomstkrav og indkomstloft for 2026 (fra VEJ og BEK-kilder)",
+    "vaerdier": [
+      {
+        "krav": "Indkomstkrav, fuldtidsforsikret (2026)",
+        "vaerdi": "286.632 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-012§4_stk0_chunk3",
+        "dokument": "Vejledning om indkomst- og beskæftigelseskravet for ret til dagpenge (2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "VEJ-kilde (L3-012). Bekræftet i L2-001 § 17, stk. 2, nr. 2 og L2-003 § 27, stk. 5 og L2-015 § 44, stk. 7."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, fuldtidsforsikret (2026)",
+        "vaerdi": "23.886 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-012§4_stk0_chunk4",
+        "dokument": "Vejledning om indkomst- og beskæftigelseskravet for ret til dagpenge (2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "= 286.632 / 12. Bekræftet i L2-001 § 17, stk. 2, nr. 2."
+      },
+      {
+        "krav": "Indkomstkrav, deltidsforsikret (2026)",
+        "vaerdi": "191.088 kr. inden for de seneste 3 år",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-012§4_stk0_chunk4",
+        "dokument": "Vejledning om indkomst- og beskæftigelseskravet for ret til dagpenge (2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "= 2/3 af fuldtidskravet. Bekræftet i L2-001 § 17, stk. 2, nr. 2 og L2-003 § 27, stk. 5 og L2-015 § 44, stk. 7."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, deltidsforsikret (2026)",
+        "vaerdi": "15.924 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-012§4_stk0_chunk4",
+        "dokument": "Vejledning om indkomst- og beskæftigelseskravet for ret til dagpenge (2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "= 191.088 / 12. Bekræftet i L2-001 § 17, stk. 2, nr. 2."
+      }
+    ]
+  },
+  "genoptjening_indkomstkrav_2026": {
+    "beskrivelse": "Indkomstkrav for genoptjening af dagpengeret via indkomst (uden dagpenge i indkomståret)",
+    "vaerdier": [
+      {
+        "krav": "Genoptjening via indkomst, fuldtidsforsikret (2026)",
+        "vaerdi": "286.632 kr. i et indkomstår",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-015§44_stk7",
+        "dokument": "Bekendtgørelse om rådighed (selvforskyldt ledighed)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "Betingelse: Medlemmet må ikke have modtaget dagpenge i det pågældende indkomstår. Identisk beløb i L2-003 § 27, stk. 5 (selvforskyldt ledighed)."
+      },
+      {
+        "krav": "Genoptjening via indkomst, deltidsforsikret (2026)",
+        "vaerdi": "191.088 kr. i et indkomstår",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-015§44_stk7",
+        "dokument": "Bekendtgørelse om rådighed (selvforskyldt ledighed)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "Betingelse: Medlemmet må ikke have modtaget dagpenge i det pågældende indkomstår. Identisk beløb i L2-003 § 27, stk. 5."
+      }
+    ]
+  },
+  "genoptjening_supplerende_dagpenge_2026": {
+    "beskrivelse": "Indkomstkrav for genoptjening af ret til supplerende dagpenge via indkomst",
+    "vaerdier": [
+      {
+        "krav": "Genoptjening supplerende dagpenge via indkomst, fuldtid (2026)",
+        "vaerdi": "286.632 kr. i et indkomstår",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L3-002§49_stk0_chunk7",
+        "dokument": "Vejledning om udbetaling af dagpenge (supplerende dagpenge, 2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "Betingelse: Medlemmet må ikke have modtaget dagpenge i det pågældende indkomstår."
+      },
+      {
+        "krav": "Genoptjening supplerende dagpenge via indkomst, deltid (2026)",
+        "vaerdi": "191.088 kr. i et indkomstår",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L3-002§49_stk0_chunk7",
+        "dokument": "Vejledning om udbetaling af dagpenge (supplerende dagpenge, 2026)",
+        "gyldighedsdato": "2026-01-01"
+      }
+    ]
+  },
+  "omregningssats": {
+    "beskrivelse": "Omregningssats for konvertering af indkomst til timer (§ 53, stk. 12)",
+    "vaerdier": [
+      {
+        "krav": "Omregningssats (2017-basisår i LOV)",
+        "vaerdi": "116,13 kr. pr. time",
+        "forsikringsstatus": "begge",
+        "provision_id": "L1-001§53_stk12",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Reguleres årligt pr. 1. januar med tilpasningsprocenten + 2 pct.point. BEK'er refererer til 'den til enhver tid gældende omregningssats'."
+      },
+      {
+        "krav": "Omregningssats (2026-reguleret)",
+        "vaerdi": "225,13 kr. pr. time",
+        "forsikringsstatus": "begge",
+        "provision_id": "L3-017§5_stk0_chunk6",
+        "dokument": "Vejledning om sanktioner (2026)",
+        "gyldighedsdato": "2026-01-01",
+        "noter": "Reguleret fra 116,13 kr. (2017). Bruges i VEJ-eksempel til beregning af karantænetimer."
+      },
+      {
+        "krav": "Maks. månedlig indkomst ved omregning, fuldtid (2017-basisår)",
+        "vaerdi": "18.619 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L1-001§53_stk12",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02",
+        "noter": "Samme loft som indkomstkravets månedlige loft."
+      },
+      {
+        "krav": "Maks. månedlig indkomst ved omregning, deltid (2017-basisår)",
+        "vaerdi": "12.413 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L1-001§53_stk12",
+        "dokument": "Bekendtgørelse af lov om arbejdsløshedsforsikring m.v.",
+        "gyldighedsdato": "2025-09-02"
+      }
+    ]
+  },
+  "beskæftigelsestillæg_indkomstloft_2025": {
+    "beskrivelse": "Indkomstloft for beskæftigelsestillæg (2025-niveau, historisk BEK)",
+    "vaerdier": [
+      {
+        "krav": "Indkomstloft pr. måned, fuldtidsforsikret (2025)",
+        "vaerdi": "22.792 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-014§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk, 2025-niveau)",
+        "gyldighedsdato": "2025-06-27",
+        "noter": "L2-014 er historisk BEK (erstattet af L2-001 fra 2026-01-15)."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, deltidsforsikret (2025)",
+        "vaerdi": "15.195 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-014§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (historisk, 2025-niveau)",
+        "gyldighedsdato": "2025-06-27"
+      }
+    ]
+  },
+  "beskæftigelsestillæg_indkomstloft_2026": {
+    "beskrivelse": "Indkomstloft for beskæftigelsestillæg (2026-niveau, gældende BEK)",
+    "vaerdier": [
+      {
+        "krav": "Indkomstloft pr. måned, fuldtidsforsikret (2026)",
+        "vaerdi": "23.886 kr.",
+        "forsikringsstatus": "fuldtid",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (2026-niveau)",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Allerede i satsoversigt under beskæftigelsestillæg, men gentaget her for fuldstændighed med deltid-loft."
+      },
+      {
+        "krav": "Indkomstloft pr. måned, deltidsforsikret (2026)",
+        "vaerdi": "15.924 kr.",
+        "forsikringsstatus": "deltid",
+        "provision_id": "L2-001§17_stk2_nr2",
+        "dokument": "Bekendtgørelse om beregning af dagpengesatsen (2026-niveau)",
+        "gyldighedsdato": "2026-01-15",
+        "noter": "Manglede i original satsoversigt (kun fuldtid-loft var medtaget)."
+      }
+    ]
+  }
+}
